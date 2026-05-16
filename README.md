@@ -30,12 +30,14 @@ This repository documents the setup and onboarding task I was assigned.
 | Issue | Solution |
 |-------|----------|
 | Task specified Cursor IDE + Codex, but installing two new tools would be slow. | Used existing **VS Code + Claude Code**, which covers the same AI-coding workflow. |
-| GitHub CLI (`gh`) was not installed, so the repo couldn't be created from the terminal. | Created the public repository through the **GitHub website** (github.com/new) instead. |
-| No global Git identity (`user.name` / `user.email`) was configured, so commits would fail. | Set the identity **locally** for this repository with `git config user.name` / `user.email`. |
+| No global Git identity (`user.name` / `user.email`) was configured, so the commit would fail. | Set the identity **locally** for this repository with `git config user.name` / `user.email`. |
+| First push failed with `remote: Repository not found` — the GitHub repo had not been created yet (`git remote add` only stores the URL locally). | Created the public repository on the **GitHub website** first, then retried the push. |
+| Push still failed because the local remote URL used the wrong repo name (`onboarding-task` vs the actual `100hires_application`). | Corrected the URL with `git remote set-url origin <correct-url>`. |
+| Push rejected with `! [rejected] main -> main (fetch first)` — GitHub had initialized the repo with its own auto-generated stub `README.md`, creating an unrelated history. | Confirmed the remote only contained the throwaway stub, then overwrote it with our real README using `git push --force-with-lease`. |
 
 ## How to Reproduce
 
 ```bash
-git clone https://github.com/<your-username>/onboarding-task.git
-cd onboarding-task
+git clone https://github.com/giaptran4work-tech/100hires_application.git
+cd 100hires_application
 ```
