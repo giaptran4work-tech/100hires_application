@@ -27,13 +27,16 @@ This repository documents the setup and onboarding task I was assigned.
 
 ## Issues Encountered & Solutions
 
-| Issue | Solution |
-|-------|----------|
-| Task specified Cursor IDE + Codex, but installing two new tools would be slow. | Used existing **VS Code + Claude Code**, which covers the same AI-coding workflow. |
-| No global Git identity (`user.name` / `user.email`) was configured, so the commit would fail. | Set the identity **locally** for this repository with `git config user.name` / `user.email`. |
-| First push failed with `remote: Repository not found` — the GitHub repo had not been created yet (`git remote add` only stores the URL locally). | Created the public repository on the **GitHub website** first, then retried the push. |
-| Push still failed because the local remote URL used the wrong repo name (`onboarding-task` vs the actual `100hires_application`). | Corrected the URL with `git remote set-url origin <correct-url>`. |
-| Push rejected with `! [rejected] main -> main (fetch first)` — GitHub had initialized the repo with its own auto-generated stub `README.md`, creating an unrelated history. | Confirmed the remote only contained the throwaway stub, then overwrote it with our real README using `git push --force-with-lease`. |
+Here are the main problems I ran into and how I worked through them:
+
+**1. The task asked for Cursor IDE + Codex, but I used VS Code + Claude Code instead.**
+The task originally said to install Cursor and the Codex extension. I already had VS Code with the Claude Code extension set up and working, which gives me the same AI-assisted coding workflow. Rather than spend time installing and configuring two new tools, I made a judgment call to use what I already had and documented the decision here so it's transparent.
+
+**2. My first push failed because the remote URL pointed to the wrong repository name.**
+When I set up the connection to GitHub, I'd used the name `onboarding-task`, but the repository I actually created on GitHub was named `100hires_application`. So Git was trying to push to a repo that didn't exist at that address. I fixed it by pointing the remote at the correct URL with `git remote set-url origin <correct-url>`, instead of deleting and re-adding the connection.
+
+**3. The push was then rejected because GitHub had already put a starter file in the repo.**
+When I created the repo on the GitHub website, GitHub automatically added its own placeholder `README.md`. That gave the online repo a separate history from my local one, so Git refused the push to avoid accidentally deleting work. I checked what was on GitHub, confirmed it was only the empty placeholder and nothing important, and then replaced it with my real README using `git push --force-with-lease` — I chose that over a plain force-push because it still protects against overwriting anyone else's changes.
 
 ## How to Reproduce
 
